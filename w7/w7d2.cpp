@@ -4,24 +4,25 @@ using namespace std;
 
 void minimumBribes(vector<int> q){
     int bribes = 0;
+    const int n = (int) q.size();
 
-    int i = 0;
-    bool ans = true;
-    while(i < (int) q.size() && ans){
-        ans = q[i] - (i+1) < 3;
-        i++;
+    for(int i = 0; i < n; i++){
+        int o = q[i];
+        int curr = i + 1;
+
+        if(o - curr > 2){
+            cout << "Too chaotic" << endl;
+            return;    
+        }
+
+        for(int k = max(o - 2, 0); k < i; k++){
+            if(q[k] > o)
+                bribes++;
+        }
     }
 
-    if(ans)
-        cout << bribes << endl;
-    else
-        cout << "Too chaotic" << endl; 
+    cout << bribes << endl;
 }
-
-/*
-8
-1 2 5 3 7 8 6 4
-*/
 
 int main(){
     int n;
