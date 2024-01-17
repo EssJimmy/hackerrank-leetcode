@@ -42,7 +42,6 @@ string isValid(string s){
         return "YES";
 }
 
-
 int main() {
     string s;
 
