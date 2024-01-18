@@ -36,29 +36,27 @@ class SinglyLinkedList {
         }
 };
 
-SinglyLinkedListNode* reverse(SinglyLinkedListNode* previous, SinglyLinkedListNode* current) {
-    if(!current->next){
-        current->next = previous;
-        return current;
+void insertNodeAtPosition(SinglyLinkedListNode* previous, SinglyLinkedListNode* current, int data, int position) {
+    if(!position){
+        SinglyLinkedListNode *n = new SinglyLinkedListNode(data);
+        previous->next = n;
+        n->next = current;
     }
 
-    SinglyLinkedListNode* head = reverse(current, current->next);
-    current->next =  previous;
-    return head;
+    insertNodeAtPosition(current, current->next, data, position - 1);
 }
 
-SinglyLinkedListNode* reverse(SinglyLinkedListNode* llist) {
+SinglyLinkedListNode* insertNodeAtPosition(SinglyLinkedListNode* llist, int data, int position) {
     if(!llist)
-        return nullptr;
-    
+        llist = new SinglyLinkedListNode(data);
+
     if(!llist->next)
-        return llist;
+        llist->next = new SinglyLinkedListNode(data);
 
-    SinglyLinkedListNode* previous; SinglyLinkedListNode* current;
-    previous = llist; current = llist->next;
+    SinglyLinkedListNode *previous = llist; 
+    SinglyLinkedListNode *current = llist->next;
 
-    SinglyLinkedListNode* ans = reverse(previous, current);
-    llist->next = nullptr;
+    free(previous); free(current);
 
-    return ans;
+    return llist;
 }
