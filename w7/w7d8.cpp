@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 using namespace std;
 
@@ -36,15 +36,6 @@ class SinglyLinkedList {
         }
 };
 
-void insertNodeAtPosition(SinglyLinkedListNode* previous, SinglyLinkedListNode* current, int data, int position) {
-    if(!position){
-        SinglyLinkedListNode *n = new SinglyLinkedListNode(data);
-        previous->next = n;
-        n->next = current;
-    }
-
-    insertNodeAtPosition(current, current->next, data, position - 1);
-}
 
 SinglyLinkedListNode* insertNodeAtPosition(SinglyLinkedListNode* llist, int data, int position) {
     if(!llist)
@@ -55,8 +46,14 @@ SinglyLinkedListNode* insertNodeAtPosition(SinglyLinkedListNode* llist, int data
 
     SinglyLinkedListNode *previous = llist; 
     SinglyLinkedListNode *current = llist->next;
+    SinglyLinkedListNode *node = new SinglyLinkedListNode(data);
+    
+    while(position-- && current->next){
+        previous = current; 
+        current = current->next;
+    }
 
-    free(previous); free(current);
-
+    previous->next = node;
+    node->next = current;
     return llist;
 }
