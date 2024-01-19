@@ -36,7 +36,6 @@ class SinglyLinkedList {
         }
 };
 
-
 SinglyLinkedListNode* insertNodeAtPosition(SinglyLinkedListNode* llist, int data, int position) {
     if(!llist)
         llist = new SinglyLinkedListNode(data);
