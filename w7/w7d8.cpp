@@ -47,9 +47,10 @@ SinglyLinkedListNode* insertNodeAtPosition(SinglyLinkedListNode* llist, int data
     SinglyLinkedListNode *current = llist->next;
     SinglyLinkedListNode *node = new SinglyLinkedListNode(data);
     
-    while(position-- && current->next){
+    while(position > 1){
         previous = current; 
         current = current->next;
+        position--;
     }
 
     previous->next = node;
