@@ -2,23 +2,20 @@
 #include <string>
 #include <stack>
 #include <unordered_map>
-#include <vector>
-#include <algorithm>
 
 using namespace std;
 
 string isBalanced(string s) {
     stack<char> chars;
     unordered_map<char, char> mpp;
-    vector<char> open{'(', '{', '['};
-
-    mpp[')'] = '('; mpp[']'] = '['; mpp['}'] = '{';
+    
+    mpp['('] = ')'; mpp['['] = ']'; mpp['{'] = '}';
 
     for(char& c : s){
-        if(chars.empty() || find(open.begin(), open.end(), c) != open.end())
+        if(chars.empty() || mpp.find(c) != mpp.end())
             chars.push(c);
         
-        else if(mpp[c] == chars.top())
+        else if(mpp[chars.top()] == c)
             chars.pop();
 
         else return "NO";
