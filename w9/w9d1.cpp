@@ -1,57 +1,74 @@
-#include <iostream>
-#include <vector>
-#include <stack>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-bool isPrime(int n){
-    if(n <= 2)
-        return false;
+const int N = 1300;
+const int M = 11000;
 
-    if(n == 2 || n == 3)
-        return true;
+int ans[M], stk[M], tmpstk[M], prim[N];
+int atop, top, ttop, n, q, num;
 
-    if(n % 2 == 0 || n % 3 == 0)
-        return false;
+void init(){
+    num = 0;
 
-    for(int i = 5; i < sqrt(n); i++){
-        if(n % i == 0 || n % (i + 2) == 0)
-            return false;
+    for(int i = 2; i < M; ++i){
+        bool found = false;
+
+        for(int j = 2; j <= sqrt(i); ++j){
+            if(i % j == 0){
+                found = true;
+                break;
+            }
+        }
+
+        if(!found)
+            prim[num++] = i;
+
+        if(num >= 1200)
+            return;
     }
-
-    return true;
 }
 
-vector<int> waiter(vector<int> number, int q){
-    vector<int> primes(q);
+int main(int argc, char** argv){
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
 
-    int j = 0;
-    for(int i = 0; i < number[number.size() - 1]; i++){
-        if(isPrime(i)){
-            primes[j] = i;
-            j++;
-        }
-    }
+    cin >> n >> q;
+    init();
+    atop = top = 0;
 
-    stack<int> plates;
-    stack<int> rest;
-    j = 0;
-    while(q--){
-        for(int i = 0; i < (int) number.size(); i++){
-            if(number[i] % primes[j] == 0)
-                plates.push(number[i]);
+    for(int i = 0; i < n; ++i)
+        cin >> stk[top++];
+
+    for(int i = 0; i < q; ++i){
+        ttop = 0;
+        while(top){
+            int v = stk[top-1];
+            --top;
+            if(v % prim[i] == 0)
+                ans[atop++] = v;
             
             else
-                rest.push(number[i]);
-             
+                tmpstk[ttop++] = v;
         }
-        j++;
+
+        while(atop){
+            cout << ans[atop-1] << endl;
+            --atop;   
+        }
+        
+        for(int j = 0; j < ttop; ++j)
+            stk[j] = tmpstk[j];
+
+        top = ttop;
+        if(!top)
+            break;
     }
 
-    vector<int> ans;
-    while(!plates.empty()){
-        ans.push_back(plates.top());
-        plates.pop();
+    while(top){
+        cout << stk[top-1] << endl;
+        --top;   
     }
 
+    return 0;
 }
