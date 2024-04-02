@@ -26,7 +26,3 @@ string superReducedString(string s){
     else
         return s;
 }
-
-int main(){
-
-}
