@@ -16,6 +16,8 @@ void solve(int n, int k, int* arr){
         while(i < n && arr[i] <= loc)
             i++;
     }
+
+    cout << count << endl;
 }
 
 int main(){
