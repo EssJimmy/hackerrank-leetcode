@@ -14,7 +14,7 @@ int valid(string x){
     return true;
 }
 
-int maint(int argc, char** argv){
+int main(int argc, char** argv){
     int asd;
     cin >> asd;
 
